@@ -1,0 +1,4 @@
+I've been learning (very quickly) that this book is WAY less step-by-step than I expected, and does
+everything using pretty high-level pseudocode. I am on page 9. I have about 100 lines each in
+main.rs and lexer.rs, and about 50 lines in compiler/mod.rs. Their pseudocode for the lexer is 8
+lines long. This is a lot more intense than I was expecting, but I am having so much fun with it.
