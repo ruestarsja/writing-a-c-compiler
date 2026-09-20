@@ -1,10 +1,10 @@
 mod obj;
 mod lexer;
 mod parser;
-mod semantic_analyzer;
-mod tacky_generator;
-mod assembly_generator;
-mod code_emitter;
+mod semantic_analysis;
+mod tacky_generation;
+mod assembly_generation;
+mod code_emission;
 
 
 use super::Stage;
@@ -64,7 +64,7 @@ pub(super) fn main(
         Stage::CodeGen |
         Stage::Compile |
         Stage::Full => {
-            Some(semantic_analyzer::main(ast_opt.unwrap()))
+            Some(semantic_analysis::main(ast_opt.unwrap()))
         }
     };
     dbg!(&validated_ast_opt);
@@ -81,7 +81,7 @@ pub(super) fn main(
         Stage::CodeGen |
         Stage::Compile |
         Stage::Full => {
-            Some(tacky_generator::main(validated_ast_opt.unwrap()))
+            Some(tacky_generation::main(validated_ast_opt.unwrap()))
         }
     };
     dbg!(&tacky_ast_opt);
@@ -91,7 +91,7 @@ pub(super) fn main(
         Stage::Preprocess |
         Stage::Lex | Stage::Parse | Stage::Validate | Stage::Tacky => { None },
         Stage::CodeGen | Stage::Compile | Stage::Full => {
-            Some(assembly_generator::main(tacky_ast_opt.unwrap()))
+            Some(assembly_generation::main(tacky_ast_opt.unwrap()))
         }
     };
     dbg!(&assembly_ast_opt);
@@ -101,7 +101,7 @@ pub(super) fn main(
     let _opt: Option<_> = match stage {
         Stage::Preprocess | Stage::Lex | Stage::Parse | Stage::Validate | Stage::Tacky | Stage::CodeGen => { None },
         Stage::Compile | Stage::Full => {
-            Some(code_emitter::main(assembly_filename, assembly_ast_opt.unwrap()))
+            Some(code_emission::main(assembly_filename, assembly_ast_opt.unwrap()))
         }
     };
 }

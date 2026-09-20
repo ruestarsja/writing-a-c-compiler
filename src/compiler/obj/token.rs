@@ -4,6 +4,7 @@ pub(crate) enum Token {
     Constant(i32),
 
     KElse,
+    KGoto,
     KIf,
     KInt,
     KReturn,

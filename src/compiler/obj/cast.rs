@@ -25,6 +25,11 @@ pub(crate) enum BlockItem {
 }
 
 #[derive(Debug)]
+pub(crate) struct Label {
+    pub(crate) id: Identifier
+}
+
+#[derive(Debug)]
 pub(crate) struct Declaration {
     pub(crate) name: Identifier,
     pub(crate) init: Option<Expression>
@@ -33,17 +38,26 @@ pub(crate) struct Declaration {
 #[derive(Debug)]
 pub(crate) enum Statement {
     Return {
+        labels: Vec<Label>,
         exp: Expression
     },
     Expression {
+        labels: Vec<Label>,
         exp: Expression
     },
     If {
+        labels: Vec<Label>,
         condition: Expression,
         then_statement: Box<Statement>,
         else_statement: Option<Box<Statement>>,
     },
-    Null
+    Goto {
+        labels: Vec<Label>,
+        target: Label
+    },
+    Null {
+        labels: Vec<Label>,
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -69,8 +83,8 @@ pub(crate) enum Expression {
     },
     Conditional {
         condition: Box<Expression>,
-        then_expression: Box<Expression>,
-        else_expression: Box<Expression>
+        exp_if_true: Box<Expression>,
+        exp_if_false: Box<Expression>
     }
 }
 
