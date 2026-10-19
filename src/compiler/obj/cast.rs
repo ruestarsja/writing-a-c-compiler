@@ -6,13 +6,15 @@ pub(crate) struct Program {
 #[derive(Debug)]
 pub(crate) struct Function {
     pub(crate) name: Identifier,
-    pub(crate) body: Vec<BlockItem>
+    pub(crate) body: Block
 }
 
 #[derive(Debug, Clone)]
 pub(crate) struct Identifier {
     pub(crate) id: String
 }
+
+pub(crate) type Block = Vec<BlockItem>;
 
 #[derive(Debug)]
 pub(crate) enum BlockItem {
@@ -54,6 +56,10 @@ pub(crate) enum Statement {
     Goto {
         labels: Vec<Label>,
         target: Label
+    },
+    Compound {
+        labels: Vec<Label>,
+        block: Block
     },
     Null {
         labels: Vec<Label>,

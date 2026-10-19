@@ -1,5 +1,6 @@
 mod program;
 mod function;
+mod block;
 mod block_item;
 mod statement;
 mod statement_label_list;

@@ -1,5 +1,5 @@
 use super::cast::{
-    BlockItem,
+    Block,
     Function,
     Identifier
 };
@@ -7,7 +7,7 @@ use super::expect;
 use super::Token;
 
 use super::identifier;
-use super::block_item;
+use super::block;
 
 
 pub(super) fn parse(
@@ -18,12 +18,7 @@ pub(super) fn parse(
     expect(Token::OpenParenthesis, tokens);
     expect(Token::KVoid, tokens);
     expect(Token::CloseParenthesis, tokens);
-    expect(Token::OpenCurlyBracket, tokens);
-    let mut body: Vec<BlockItem> = vec![];
-    while tokens[0] != Token::CloseCurlyBracket {
-        body.push(block_item::parse(tokens));
-    }
-    expect(Token::CloseCurlyBracket, tokens);
+    let body: Block = block::parse(tokens);
     
     Function {
         name,

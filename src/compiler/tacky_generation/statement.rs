@@ -1,6 +1,7 @@
 use super::cast;
 use super::tast;
 
+use super::block;
 use super::label_list;
 use super::identifier;
 use super::expression;
@@ -108,7 +109,18 @@ pub(super) fn generate_instructions(
                     target: identifier::generate(cast_target.id)
                 }
             );
-        }
+        },
+
+        cast::Statement::Compound {
+            labels: cast_labels,
+            block: cast_block
+        } => {
+            instructions = label_list::generate_instructions(cast_labels);
+            statement_instructions = block::generate_instructions(cast_block);
+            instructions.append(
+                &mut statement_instructions
+            );
+        },
 
         cast::Statement::Null {
             labels: cast_labels,

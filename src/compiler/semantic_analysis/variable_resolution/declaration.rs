@@ -1,22 +1,27 @@
 use super::cast::{ Declaration, Identifier };
 use super::VariableMap;
+use super::variable_map::UniqueVariableInfo;
 
 use super::expression;
-use super::id;
 
 
 pub(super) fn traverse(
     declaration: Declaration,
     variable_map: &mut VariableMap
 ) -> Declaration {
-    if variable_map.get(&declaration.name.id).is_some() {
-        panic!("cannot declare the same variable twice");
+    if variable_map.get(&declaration.name.id).is_some_and(
+        |uvi| -> bool { uvi.is_current_block() }
+    ) {
+        panic!("cannot declare the same variable twice in the same block");
     }
-    let unique_id: String = id::make_unique(&declaration.name.id);
-    variable_map.insert(declaration.name.id, unique_id.clone());
+    let uvi: UniqueVariableInfo = UniqueVariableInfo::new(&declaration.name.id);
+    variable_map.insert(
+        declaration.name.id,
+        uvi.clone()
+    );
     Declaration {
         name: Identifier {
-            id: unique_id
+            id: uvi.get_uid().to_owned()
         },
         init: match declaration.init {
             Some(exp) => Some(

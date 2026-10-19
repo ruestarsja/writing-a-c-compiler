@@ -1,6 +1,7 @@
 mod program;
 mod function;
 mod identifier;
+mod block;
 mod block_item;
 mod label;
 mod declaration;

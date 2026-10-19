@@ -2,6 +2,7 @@ use super::cast::Statement;
 use super::VariableMap;
 
 use super::expression;
+use super::block;
 
 
 pub(super) fn traverse(
@@ -77,6 +78,19 @@ pub(super) fn traverse(
                 target
             }
         },
+
+        Statement::Compound {
+            labels,
+            block
+        } => {
+            Statement::Compound {
+                labels,
+                block: block::traverse(
+                    block,
+                    variable_map
+                )
+            }
+        }
         
         Statement::Null {
             labels

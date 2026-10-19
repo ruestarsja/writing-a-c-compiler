@@ -1,6 +1,7 @@
 use super::cast::Statement;
 use super::LabelMap;
 
+use super::block;
 use super::statement_label_list;
 use super::target_label;
 
@@ -89,6 +90,24 @@ pub(super) fn traverse(
                 ),
                 target: target_label::traverse(
                     target,
+                    label_map,
+                    undefined_label_map
+                )
+            }
+        },
+
+        Statement::Compound {
+            labels,
+            block
+        } => {
+            Statement::Compound {
+                labels: statement_label_list::traverse(
+                    labels,
+                    label_map,
+                    undefined_label_map
+                ),
+                block: block::traverse(
+                    block,
                     label_map,
                     undefined_label_map
                 )

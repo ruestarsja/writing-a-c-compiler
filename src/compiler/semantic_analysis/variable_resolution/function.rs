@@ -1,22 +1,17 @@
-use super::cast::{ BlockItem, Function };
+use super::cast::{ Block, Function };
 use super::VariableMap;
 
-use super::block_item;
+use super::block;
 
 
 pub(super) fn traverse(
     function: Function,
     variable_map: &mut VariableMap
 ) -> Function {
-    let mut function_body: Vec<BlockItem> = vec![];
-    for block_item in function.body {
-        function_body.push(
-            block_item::traverse(
-                block_item,
-                variable_map
-            )
-        );
-    }
+    let function_body: Block = block::traverse(
+        function.body,
+        variable_map
+    );
     Function {
         name: function.name,
         body: function_body

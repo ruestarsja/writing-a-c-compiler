@@ -24,7 +24,7 @@ pub(super) fn traverse(
             Expression::Var {
                 id: Identifier {
                     id: match variable_map.get(&id.id) {
-                        Some(unique_id) => unique_id.to_owned(),
+                        Some(uvi) => uvi.get_uid().to_owned(),
                         None => panic!("use of undeclared variable `{}`", id.id)
                     }
                 }

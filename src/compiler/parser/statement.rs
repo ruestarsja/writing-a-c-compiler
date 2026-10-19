@@ -6,6 +6,7 @@ use super::cast::{
 use super::expect;
 use super::Token;
 
+use super::block;
 use super::expression;
 use super::label;
 
@@ -68,6 +69,14 @@ pub(super) fn parse(
             Statement::Goto {
                 labels,
                 target
+            }
+        },
+
+        Token::OpenCurlyBracket => {
+            let block = block::parse(tokens);
+            Statement::Compound {
+                labels,
+                block
             }
         },
 
