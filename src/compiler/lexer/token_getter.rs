@@ -17,13 +17,18 @@ pub(super) fn next(
     let next_token: Token = match token_type {
         Token::Identifier(_) => {
             match token_text {
-                "else"   => Token::KElse,
-                "goto"   => Token::KGoto,
-                "if"     => Token::KIf,
-                "int"    => Token::KInt,
-                "return" => Token::KReturn,
-                "void"   => Token::KVoid,
-                _        => Token::Identifier(token_text.to_owned())
+                "break"    => Token::KBreak,
+                "continue" => Token::KContinue,
+                "do"       => Token::KDo,
+                "else"     => Token::KElse,
+                "for"      => Token::KFor,
+                "goto"     => Token::KGoto,
+                "if"       => Token::KIf,
+                "int"      => Token::KInt,
+                "return"   => Token::KReturn,
+                "void"     => Token::KVoid,
+                "while"    => Token::KWhile,
+                _          => Token::Identifier(token_text.to_owned())
             }
         },
         Token::Constant(_) => {

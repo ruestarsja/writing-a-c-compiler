@@ -114,6 +114,110 @@ pub(super) fn traverse(
             }
         },
 
+        Statement::Break {
+            labels,
+            loop_id
+        } => {
+            Statement::Break {
+                labels: statement_label_list::traverse(
+                    labels,
+                    label_map,
+                    undefined_label_map
+                ),
+                loop_id
+            }
+        },
+
+        Statement::Continue {
+            labels,
+            loop_id
+        } => {
+            Statement::Continue {
+                labels: statement_label_list::traverse(
+                    labels,
+                    label_map,
+                    undefined_label_map
+                ),
+                loop_id
+            }
+        },
+
+        Statement::While {
+            labels,
+            condition,
+            body,
+            loop_id
+        } => {
+            Statement::While {
+                labels: statement_label_list::traverse(
+                    labels,
+                    label_map,
+                    undefined_label_map
+                ),
+                condition,
+                body: Box::new(
+                    traverse(
+                        *body,
+                        label_map,
+                        undefined_label_map
+                    )
+                ),
+                loop_id
+            }
+        },
+
+        Statement::DoWhile {
+            labels,
+            body,
+            condition,
+            loop_id
+        } => {
+            Statement::DoWhile {
+                labels: statement_label_list::traverse(
+                    labels,
+                    label_map,
+                    undefined_label_map
+                ),
+                body: Box::new(
+                    traverse(
+                        *body,
+                        label_map,
+                        undefined_label_map
+                    )
+                ),
+                condition,
+                loop_id
+            }
+        },
+
+        Statement::For {
+            labels,
+            init,
+            condition,
+            post,
+            body,
+            loop_id
+        } => {
+            Statement::For {
+                labels: statement_label_list::traverse(
+                    labels,
+                    label_map,
+                    undefined_label_map
+                ),
+                init,
+                condition,
+                post,
+                body: Box::new(
+                    traverse(
+                        *body,
+                        label_map,
+                        undefined_label_map
+                    )
+                ),
+                loop_id
+            }
+        },
+
         Statement::Null {
             labels
         } => {

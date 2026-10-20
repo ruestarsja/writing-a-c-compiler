@@ -38,6 +38,16 @@ pub(crate) struct Declaration {
 }
 
 #[derive(Debug)]
+pub(crate) enum ForInit {
+    InitDecl {
+        declaration: Declaration,
+    },
+    InitExp {
+        expression: Option<Expression>
+    }
+}
+
+#[derive(Debug)]
 pub(crate) enum Statement {
     Return {
         labels: Vec<Label>,
@@ -60,6 +70,34 @@ pub(crate) enum Statement {
     Compound {
         labels: Vec<Label>,
         block: Block
+    },
+    Break {
+        labels: Vec<Label>,
+        loop_id: Option<String>
+    },
+    Continue {
+        labels: Vec<Label>,
+        loop_id: Option<String>
+    },
+    While {
+        labels: Vec<Label>,
+        condition: Expression,
+        body: Box<Statement>,
+        loop_id: Option<String>
+    },
+    DoWhile {
+        labels: Vec<Label>,
+        body: Box<Statement>,
+        condition: Expression,
+        loop_id: Option<String>
+    },
+    For {
+        labels: Vec<Label>,
+        init: ForInit,
+        condition: Option<Expression>,
+        post: Option<Expression>,
+        body: Box<Statement>,
+        loop_id: Option<String>
     },
     Null {
         labels: Vec<Label>,

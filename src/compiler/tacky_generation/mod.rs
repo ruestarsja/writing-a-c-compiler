@@ -3,6 +3,7 @@ mod function;
 mod block;
 mod block_item;
 mod statement;
+mod for_init;
 mod declaration;
 mod label_list;
 mod label;

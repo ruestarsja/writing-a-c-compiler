@@ -1,5 +1,6 @@
 mod variable_resolution;
 mod label_resolution;
+mod loop_labeling;
 
 use super::obj::cast;
 
@@ -15,5 +16,8 @@ pub(super) fn main(
     // VALIDATE LABELS
     let cast_validated_labels = label_resolution::main(cast_resolved_variables);
 
-    return cast_validated_labels;
+    // LABEL LOOPS
+    let cast_labeled_loops = loop_labeling::main(cast_validated_labels);
+
+    return cast_labeled_loops;
 }

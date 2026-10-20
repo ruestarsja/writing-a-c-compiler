@@ -3,12 +3,17 @@ pub(crate) enum Token {
     Identifier(String),
     Constant(i32),
 
+    KBreak,
+    KContinue,
+    KDo,
     KElse,
+    KFor,
     KGoto,
     KIf,
     KInt,
     KReturn,
     KVoid,
+    KWhile,
 
     Ampersand,
     Asterisk,

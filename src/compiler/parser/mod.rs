@@ -5,6 +5,7 @@ mod block;
 mod block_item;
 mod label;
 mod declaration;
+mod for_init;
 mod statement;
 mod expression;
 mod operators;

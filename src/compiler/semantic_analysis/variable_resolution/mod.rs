@@ -4,6 +4,7 @@ mod block;
 mod block_item;
 mod statement;
 mod declaration;
+mod for_init;
 mod expression;
 mod id;
 mod variable_map;

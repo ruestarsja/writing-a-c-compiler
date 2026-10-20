@@ -7,6 +7,13 @@ pub(super) enum IDType {
     EndIfLabel
 }
 
+pub(super) enum LoopLabelIDType {
+    BreakLabel,
+    ContinueLabel,
+    StartLabel,
+    // EndLabel
+}
+
 
 pub(super) fn generate(
     label_id_type: IDType
@@ -64,5 +71,26 @@ pub(super) fn generate(
             }
             format!("end_if_{}", count)
         }
+    }
+}
+
+
+pub(super) fn generate_loop_id(
+    label_id_type: LoopLabelIDType,
+    loop_id: String
+) -> String {
+    match label_id_type {
+        LoopLabelIDType::BreakLabel => {
+            format!("break_{}", loop_id)
+        },
+        LoopLabelIDType::ContinueLabel => {
+            format!("continue_{}", loop_id)
+        },
+        LoopLabelIDType::StartLabel => {
+            format!("start_{}", loop_id)
+        },
+        // LoopLabelIDType::EndLabel => {
+        //     format!("end_{}", loop_id)
+        // }
     }
 }
